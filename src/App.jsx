@@ -18,7 +18,7 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(false);
 
-  const isOnline = data && Date.now() - data.timestamp < 15000;
+  const isOnline = data && Date.now() - data.timestamp < 65000;
   
   const getAQIStatus = (aqi) => {
   if (aqi <= 50) return { text: "Good", color: "text-green-500" };
@@ -47,29 +47,52 @@ function App() {
   }, []);
 
   const chartData = {
-    labels: history.map((h) => new Date(Number(h.time)).toLocaleTimeString()),
+    labels: history.map((h) =>
+      new Date(Number(h.time)).toLocaleTimeString()
+    ),
     datasets: [
       {
         label: "Temperature",
         data: history.map((h) => h.temp),
+        borderColor: "#22c55e", // bright green
+        backgroundColor: "rgba(34,197,94,0.2)",
+        tension: 0.4,
+        borderWidth: 3,
+        pointRadius: 2,
+        pointBackgroundColor: "#22c55e",
       },
     ],
   };
 
   const chartOptions = {
+    responsive: true,
     plugins: {
       legend: {
         labels: {
-          color: darkMode ? "white" : "black",
+          color: darkMode ? "#fff" : "#000",
         },
       },
     },
     scales: {
       x: {
-        ticks: { color: darkMode ? "white" : "black" },
+        ticks: {
+          color: darkMode ? "#ccc" : "#333",
+        },
+        grid: {
+          color: darkMode
+            ? "rgba(255,255,255,0.08)"
+            : "#e5e7eb",
+        },
       },
       y: {
-        ticks: { color: darkMode ? "white" : "black" },
+        ticks: {
+          color: darkMode ? "#ccc" : "#333",
+        },
+        grid: {
+          color: darkMode
+            ? "rgba(255,255,255,0.08)"
+            : "#e5e7eb",
+        },
       },
     },
   };
