@@ -115,6 +115,12 @@ function App() {
     return "text-orange-500";
   };
 
+  const getSoundColor = (s) => {
+    if (s < 40) return "text-green-500";   // quiet
+    if (s < 70) return "text-yellow-500";  // normal
+    return "text-red-500";                 // loud
+  };
+
   return (
   <div className={`min-h-screen px-2 sm:px-0 transition-colors duration-500 ${
         darkMode
@@ -185,6 +191,14 @@ function App() {
               value={`${data.light} lx`}
               icon="💡"
               color={getLightColor(data.light)}
+              darkMode={darkMode}
+            />
+            
+            <Card
+              title="Sound"
+              value={`${data.sound ?? "--"} dB`}
+              icon="🔊"
+              color={getSoundColor(data.sound)}
               darkMode={darkMode}
             />
 
